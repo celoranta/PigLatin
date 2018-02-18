@@ -7,7 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "StringDeconstructor.h"
 
-@interface WordParser : NSObject
+@interface WordParser : NSObject <CLEWordParser>
+
+@property BOOL testingMode;
+@property NSString* parsingMode;
+
+- (NSMutableArray*)parseNSMutableArray: (NSMutableArray*)parseInput;
+
+
 
 @end

@@ -7,13 +7,18 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "StringDeconstructor.h"
+#import "WordParser.h"
 
 @interface NSString (PigLatinizer)
 
-- (NSString*)newPigLatinizedStringWithSilentESet:(NSSet*)silentESet;
 
-+ (NSString*)initPigLatinizedWordStringWithWordString:(NSString*)wordInput;
 
-- (NSSet*)cleSilentEBank: (NSString*)sourceString;
+
++ (NSString*)CreatePigLatinizedWordStringWithWordString:(NSString*)wordInput;
+
+
 
 @end
+
+

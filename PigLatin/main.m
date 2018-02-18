@@ -8,13 +8,18 @@
 
 #import <Foundation/Foundation.h>
 #import "NSString+PigLatinizer.h"
+#import "StringDeconstructor.h"
+
+#import "WordParser.h"
 
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
         
 
         // set testing mode here
-        bool testingMode = YES;
+        bool testingMode = NO;
+        
+
         
         
       // prompt the user for a phrase
@@ -33,7 +38,9 @@ int main(int argc, const char * argv[]) {
         //test for user input parser
         if(testingMode) NSLog(@"%@",confirmationInputString);
         
-        NSString *pigLatinizedPhrase = [NSString initPigLatinizedWordStringWithWordString:confirmationInputString];
+        
+
+        NSString *pigLatinizedPhrase = [NSString CreatePigLatinizedWordStringWithWordString:confirmationInputString];
         
         //test for piglatinization
         if(testingMode) NSLog(@"%@",pigLatinizedPhrase);

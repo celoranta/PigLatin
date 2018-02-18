@@ -10,7 +10,7 @@
 		955187562037AD4D004926D4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 955187552037AD4D004926D4 /* main.m */; };
 		95B5CA3F2038C96E006990C0 /* NSString+PigLatinizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 95B5CA3E2038C96E006990C0 /* NSString+PigLatinizer.m */; };
 		95B5CA4220390029006990C0 /* WordParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 95B5CA4120390029006990C0 /* WordParser.m */; };
-		95B5CA4520390035006990C0 /* WordDeconstructor.m in Sources */ = {isa = PBXBuildFile; fileRef = 95B5CA4420390035006990C0 /* WordDeconstructor.m */; };
+		95B5CA4520390035006990C0 /* StringDeconstructor.m in Sources */ = {isa = PBXBuildFile; fileRef = 95B5CA4420390035006990C0 /* StringDeconstructor.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -32,8 +32,8 @@
 		95B5CA3E2038C96E006990C0 /* NSString+PigLatinizer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+PigLatinizer.m"; sourceTree = "<group>"; };
 		95B5CA4020390029006990C0 /* WordParser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WordParser.h; sourceTree = "<group>"; };
 		95B5CA4120390029006990C0 /* WordParser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WordParser.m; sourceTree = "<group>"; };
-		95B5CA4320390035006990C0 /* WordDeconstructor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WordDeconstructor.h; sourceTree = "<group>"; };
-		95B5CA4420390035006990C0 /* WordDeconstructor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WordDeconstructor.m; sourceTree = "<group>"; };
+		95B5CA4320390035006990C0 /* StringDeconstructor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StringDeconstructor.h; sourceTree = "<group>"; };
+		95B5CA4420390035006990C0 /* StringDeconstructor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StringDeconstructor.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,8 +69,8 @@
 				955187552037AD4D004926D4 /* main.m */,
 				95B5CA4020390029006990C0 /* WordParser.h */,
 				95B5CA4120390029006990C0 /* WordParser.m */,
-				95B5CA4320390035006990C0 /* WordDeconstructor.h */,
-				95B5CA4420390035006990C0 /* WordDeconstructor.m */,
+				95B5CA4320390035006990C0 /* StringDeconstructor.h */,
+				95B5CA4420390035006990C0 /* StringDeconstructor.m */,
 				95B5CA3D2038C96E006990C0 /* NSString+PigLatinizer.h */,
 				95B5CA3E2038C96E006990C0 /* NSString+PigLatinizer.m */,
 			);
@@ -135,7 +135,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				95B5CA4220390029006990C0 /* WordParser.m in Sources */,
-				95B5CA4520390035006990C0 /* WordDeconstructor.m in Sources */,
+				95B5CA4520390035006990C0 /* StringDeconstructor.m in Sources */,
 				955187562037AD4D004926D4 /* main.m in Sources */,
 				95B5CA3F2038C96E006990C0 /* NSString+PigLatinizer.m in Sources */,
 			);
