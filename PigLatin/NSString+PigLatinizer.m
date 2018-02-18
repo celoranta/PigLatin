@@ -22,6 +22,12 @@
     //set parser as deconstructor delegate
     myDeconstructor.parserDelegate = myWordParser;
     
+//    //set parsing mode
+//    myWordParser.parsingMode = @"PhraseChop";
+//
+//    //send NSString to deconstructor for relay to parser
+//    NSString *parsedString0 = [myDeconstructor pigLatinizedWordStringWithWordString:wordInput];
+    
     //set parser mode to remove apostrophes
     myWordParser.parsingMode = @"SingleWordToDepostrophedWord";
     

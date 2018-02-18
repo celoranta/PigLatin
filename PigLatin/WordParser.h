@@ -12,7 +12,8 @@
 @interface WordParser : NSObject <CLEWordParser>
 
 @property BOOL testingMode;
-@property NSString* parsingMode;
+@property  NSString* parsingMode;
+@property (nonatomic, readonly) NSMutableArray* spaceAndPunctuationArray;
 
 - (NSMutableArray*)parseNSMutableArray: (NSMutableArray*)parseInput;
 

@@ -11,8 +11,6 @@
 
 
 
-
-
 @implementation WordParser
 
 - (NSMutableArray*)parseNSMutableArray: (NSMutableArray*)parseInput
@@ -34,7 +32,10 @@
         {
             returnArray = piglatinize(parseInput);
         }
-    
+        else if([mode isEqualToString:@"PhraseChop"])
+        {
+            returnArray = siftWordsFromPunctuation(parseInput);
+        }
     
     // default 'else' statement sends back a message if no recognized string is held in parsingMode property
     else{
@@ -190,4 +191,101 @@ NSMutableArray* piglatinize(NSMutableArray *letterArray) {
   
     return letterArray;
 }
+// Sorts words from everything else, and places strings of each into separate NSMutableArray objects.
+//
+
+//create array to hold parsing
+NSMutableArray* siftWordsFromPunctuation(NSMutableArray *letterArray)
+{
+    //iterator
+    NSInteger i=0;
+    
+    //create custom character set to distinguish words from the rest
+    NSCharacterSet *alphaNums = [NSCharacterSet characterSetWithCharactersInString:@"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'"];
+    
+    //create registers for string pointer and character index
+    NSString* stringRegister;
+    char characterRegister;
+    
+    //iterate through the array, marking letters with '&' and the rest with '*'
+    while(i<[letterArray count])
+    {
+        stringRegister = [letterArray objectAtIndex:i];
+        characterRegister = [stringRegister characterAtIndex:0];
+        
+        if([alphaNums characterIsMember:characterRegister])
+        {
+            [letterArray replaceObjectAtIndex:i withObject:[stringRegister stringByAppendingString:@"&"]];
+        }
+        else
+        {
+            [letterArray replaceObjectAtIndex:i withObject:[stringRegister stringByAppendingString:@"*"]];        }
+        i++;
+    }
+    
+    NSCharacterSet *markers = [NSCharacterSet characterSetWithCharactersInString:@"&*^"];
+    NSMutableArray *wordArray = [NSMutableArray arrayWithObject:@"^"];
+    NSMutableArray *punctArray = [NSMutableArray arrayWithObject:@"^"];
+    NSString *stringReadRegister = @"";
+    NSString *stringWriteRegister = @"^";
+    NSString *appending = @"^";
+    NSString *trimString = @"^";
+    BOOL markerToggle = YES;
+    BOOL followerToggle = NO;
+    BOOL arrayToggle = YES;
+    NSMutableArray *arraySwitch = nil;
+    i = 0;
+    float carryIterator = 0;
+    NSInteger stringPosition = 0;
+    NSInteger bank = 0;
+    while(i < [letterArray count])
+    {
+        // call up the string at this array register
+        stringReadRegister = [letterArray objectAtIndex:i];
+        
+        // check to see if it is a letter, and set the marker Toggle accordingly
+        markerToggle = ([stringReadRegister characterAtIndex:1] == '&');
+        
+        // check to see if the marker toggle has changed
+        arrayToggle = !(followerToggle == markerToggle);
+        
+        // point the switch at the proper array for the format
+        if (markerToggle)
+        {
+            arraySwitch = wordArray;
+        }
+        else
+        {
+            arraySwitch = punctArray;
+        }
+        if (followerToggle)
+        {
+            carryIterator++;
+            bank = round((carryIterator/2));
+            stringPosition = 0;
+        }
+        else
+        {
+            stringPosition++;
+        }
+        
+        
+        [stringReadRegister isEqualToString:[letterArray objectAtIndex:i]];
+        [stringWriteRegister isEqualToString:[stringReadRegister stringByTrimmingCharactersInSet:markers] ];
+        [appending isEqualToString: [appending stringByAppendingString:stringWriteRegister]];
+        [arraySwitch replaceObjectAtIndex:(bank) withObject:appending];
+        
+        
+        
+        
+    
+        followerToggle = markerToggle;
+        
+        i++;
+    }
+    NSLog(@"%@",wordArray);
+    NSLog(@"%@",punctArray);
+    return letterArray;
+}
+
 @end
