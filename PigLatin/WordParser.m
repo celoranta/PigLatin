@@ -191,6 +191,8 @@ NSMutableArray* piglatinize(NSMutableArray *letterArray) {
   
     return letterArray;
 }
+
+//PHRASECHOP
 // Sorts words from everything else, and places strings of each into separate NSMutableArray objects.
 //
 
