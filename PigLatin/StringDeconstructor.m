@@ -15,14 +15,14 @@
 
 - (NSString*)pigLatinizedWordStringWithWordString:(NSString*)wordInput
 {
-    NSLog(@"Test input to method: %@",wordInput);
+    //NSLog(@"Test input to method: %@",wordInput);
     
     
     // create mutable array from input
     NSMutableArray *letterArray = [NSMutableArray array];
     NSString *letters = wordInput;
     
-    // parse input into an NSArray of NSMutableStrings
+    // parse input into an NSArray of NSMutableString letters
     [letters enumerateSubstringsInRange:NSMakeRange(0, [letters length])
                                 options:(NSStringEnumerationByComposedCharacterSequences)
                              usingBlock:^(NSString *substring, NSRange substringRange, NSRange enclosingRange, BOOL *stop)
@@ -31,12 +31,18 @@
      }];
     
     // test print NSStrings in Array before sending to parser
-    //for (NSString *i in letterArray) {NSLog(@"Test print array before parser: \n%@",i);}
+    // for (NSString *i in letterArray) {NSLog(@"Test print array before parser: \n%@",i);}
+    
+    
+    // send full phrase array of mutableString letters to parser and receive ParserPackage
+    
+    // Use a loop to send all arrays in parserPackage to self.parseNSMutableArray
+    
     
 
-    
-    // send letterArray to parser and receive parsedArray
+    // send letterArray word to parser and receive NSMutableArray of letter strings
     NSMutableArray *parsedArray = [self.parserDelegate parseNSMutableArray:letterArray];
+    
     
     // test print NSStrings in Array after receiving from parser
     // for (NSString *i in parsedArray) {NSLog(@"Test print array after parser: \n%@",i);}
@@ -44,8 +50,10 @@
     // parse array into string
     NSString * modifiedString = [[parsedArray valueForKey:@"description"] componentsJoinedByString:@""];
     
+    //
+    
     // test print modified word as NSMutable string
-    NSLog(@"Test print modified NSMutableString: %@",modifiedString);
+    //NSLog(@"Test print modified NSMutableString: %@",modifiedString);
     
     return modifiedString;
 }

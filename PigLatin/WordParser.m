@@ -34,8 +34,39 @@
         }
         else if([mode isEqualToString:@"PhraseChop"])
         {
-            returnArray = siftWordsFromPunctuation(parseInput);
-        }
+            NSArray *doubleArray = siftWordsFromPunctuation(parseInput);
+            NSMutableArray *wordsArray = [NSMutableArray arrayWithArray:[doubleArray objectAtIndex:0]];
+            NSMutableArray *notWordsArray = [NSMutableArray arrayWithArray:[doubleArray objectAtIndex:1]];
+            NSInteger i = 0;
+            NSString* wordOne;
+            WordParser *recursiveWordParser = [[WordParser alloc]init];
+            StringDeconstructor *recursiveDeconstructor = [StringDeconstructor new];
+            [recursiveDeconstructor setParserDelegate:recursiveWordParser];
+            while(i < [wordsArray count])
+            {
+                wordOne = [wordsArray objectAtIndex:i];
+                recursiveWordParser.parsingMode = @"SingleWordToDepostrophedWord";
+                wordOne = [recursiveDeconstructor pigLatinizedWordStringWithWordString:wordOne];
+                recursiveWordParser.parsingMode = @"PigLatinize";
+                wordOne = [recursiveDeconstructor pigLatinizedWordStringWithWordString:wordOne];
+                [wordsArray replaceObjectAtIndex:i withObject:wordOne];
+                i++;
+            }
+            i = 1;
+            NSInteger j = 0;
+            while(i <= [wordsArray count] && j < [notWordsArray count])
+            {
+                [wordsArray insertObject:[notWordsArray objectAtIndex:j] atIndex:i];
+                
+                                          
+                j++;
+                i += 2;
+            }
+            returnArray =  wordsArray;
+            }
+            
+    
+    
     
     // default 'else' statement sends back a message if no recognized string is held in parsingMode property
     else{
@@ -104,7 +135,7 @@ NSMutableArray* piglatinize(NSMutableArray *letterArray) {
     NSMutableArray *vowelConsonantHashArrayReversed = makeMutable(vowelConsonantHashArrayImmutable);
     
     //create vowel characterset for comparison
-    NSCharacterSet *lowerVowelsAndY = [NSCharacterSet characterSetWithCharactersInString:@"aeiouy"];
+    NSCharacterSet *lowerVowelsAndY = [NSCharacterSet characterSetWithCharactersInString:@"aeiou"];
     
     //iterate through array while
     //inserting 'V' and 'C' strings into new array
@@ -144,11 +175,11 @@ NSMutableArray* piglatinize(NSMutableArray *letterArray) {
     NSString *currentFirstLetterString = [letterArray objectAtIndex:0];
     
     //if leading string is 'y', delete it, along with corresponding string in hash
-    if([currentFirstLetterString isEqualToString:@"y"])
-    {
-        [letterArray removeObjectAtIndex:0];
-        [vowelConsonantHashArray removeObjectAtIndex:0];
-    }
+//    if([currentFirstLetterString isEqualToString:@"y"])
+//    {
+//        [letterArray removeObjectAtIndex:0];
+//        [vowelConsonantHashArray removeObjectAtIndex:0];
+//    }
     
     //parse into sylables
     //
@@ -245,8 +276,8 @@ NSMutableArray* siftWordsFromPunctuation(NSMutableArray *letterArray)
         i++;
     }
     
-    NSLog(@"Words array: %@", wordsOnlyArray);
-    NSLog(@"Everthing Else array: %@",everythingElseArray);
+    //NSLog(@"Words array: %@", wordsOnlyArray);
+    //NSLog(@"Everthing Else array: %@",everythingElseArray);
     
     // the concept below is to turn each array into a string, then use
     // use 'component separated by characters in set' against a character
@@ -265,8 +296,8 @@ NSMutableArray* siftWordsFromPunctuation(NSMutableArray *letterArray)
         i++;
     }
     
-    NSLog(@"Words only string: %@",wordsOnlyString);
-    NSLog(@"Everthing else string: %@",everythingElseString);
+    //NSLog(@"Words only string: %@",wordsOnlyString);
+    //NSLog(@"Everthing else string: %@",everythingElseString);
     
     NSCharacterSet *nullHash = [NSCharacterSet characterSetWithCharactersInString:@"*"];
     
@@ -278,8 +309,8 @@ NSMutableArray* siftWordsFromPunctuation(NSMutableArray *letterArray)
     [fullWordsArray removeObject: @""];
     [fullElseArray removeObject: @""];
     
-    NSLog(@"Full words array: %@",fullWordsArray);
-    NSLog(@"Full else array: %@",fullElseArray);
+    //NSLog(@"Full words array: %@",fullWordsArray);
+    //NSLog(@"Full else array: %@",fullElseArray);
     
 //    NSMutableString * phraseStartsWith = [[NSMutableString alloc]initWithString:@"phrase"];
 //    if(phraseStartsWithLetter == YES)
@@ -304,7 +335,7 @@ NSMutableArray* siftWordsFromPunctuation(NSMutableArray *letterArray)
         [phraseResponse addObject:fullWordsArray];
 
     }
-    NSLog(@"Full response array of arrays: %@",phraseResponse);
+    //NSLog(@"Full response array of arrays: %@",phraseResponse);
 
     
     
@@ -398,7 +429,7 @@ NSMutableArray* siftWordsFromPunctuation(NSMutableArray *letterArray)
 //        i++;
 //    }
 
-    return letterArray;
+    return phraseResponse;
 }
 
 @end

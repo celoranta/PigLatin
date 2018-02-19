@@ -17,7 +17,7 @@ int main(int argc, const char * argv[]) {
         
 
         // set testing mode here
-        bool testingMode = NO;
+        //bool testingMode = NO;
         
 
         
@@ -36,14 +36,14 @@ int main(int argc, const char * argv[]) {
             confirmationInputString = [confirmationInputString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         
         //test for user input parser
-        if(testingMode) NSLog(@"%@",confirmationInputString);
+        //if(testingMode) NSLog(@"%@",confirmationInputString);
         
         
 
         NSString *pigLatinizedPhrase = [NSString CreatePigLatinizedWordStringWithWordString:confirmationInputString];
         
         //test for piglatinization
-        if(testingMode) NSLog(@"%@",pigLatinizedPhrase);
+        NSLog(@"Your phrase, when translated into pre-classical Pig Latin, is:\n%@",pigLatinizedPhrase);
         
     }
     return 0;

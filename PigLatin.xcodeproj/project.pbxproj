@@ -11,6 +11,7 @@
 		95B5CA3F2038C96E006990C0 /* NSString+PigLatinizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 95B5CA3E2038C96E006990C0 /* NSString+PigLatinizer.m */; };
 		95B5CA4220390029006990C0 /* WordParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 95B5CA4120390029006990C0 /* WordParser.m */; };
 		95B5CA4520390035006990C0 /* StringDeconstructor.m in Sources */ = {isa = PBXBuildFile; fileRef = 95B5CA4420390035006990C0 /* StringDeconstructor.m */; };
+		95B5CA48203A70CE006990C0 /* ParserPackage.m in Sources */ = {isa = PBXBuildFile; fileRef = 95B5CA47203A70CE006990C0 /* ParserPackage.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -34,6 +35,8 @@
 		95B5CA4120390029006990C0 /* WordParser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WordParser.m; sourceTree = "<group>"; };
 		95B5CA4320390035006990C0 /* StringDeconstructor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StringDeconstructor.h; sourceTree = "<group>"; };
 		95B5CA4420390035006990C0 /* StringDeconstructor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StringDeconstructor.m; sourceTree = "<group>"; };
+		95B5CA46203A70CE006990C0 /* ParserPackage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ParserPackage.h; sourceTree = "<group>"; };
+		95B5CA47203A70CE006990C0 /* ParserPackage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ParserPackage.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +74,8 @@
 				95B5CA4120390029006990C0 /* WordParser.m */,
 				95B5CA4320390035006990C0 /* StringDeconstructor.h */,
 				95B5CA4420390035006990C0 /* StringDeconstructor.m */,
+				95B5CA46203A70CE006990C0 /* ParserPackage.h */,
+				95B5CA47203A70CE006990C0 /* ParserPackage.m */,
 				95B5CA3D2038C96E006990C0 /* NSString+PigLatinizer.h */,
 				95B5CA3E2038C96E006990C0 /* NSString+PigLatinizer.m */,
 			);
@@ -136,6 +141,7 @@
 			files = (
 				95B5CA4220390029006990C0 /* WordParser.m in Sources */,
 				95B5CA4520390035006990C0 /* StringDeconstructor.m in Sources */,
+				95B5CA48203A70CE006990C0 /* ParserPackage.m in Sources */,
 				955187562037AD4D004926D4 /* main.m in Sources */,
 				95B5CA3F2038C96E006990C0 /* NSString+PigLatinizer.m in Sources */,
 			);

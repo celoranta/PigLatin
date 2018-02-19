@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "StringDeconstructor.h"
+#import "ParserPackage.h"
 
 @interface WordParser : NSObject <CLEWordParser>
 

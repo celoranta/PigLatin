@@ -41,7 +41,7 @@
     NSString *parsedString2 = [myDeconstructor pigLatinizedWordStringWithWordString:parsedString1];
     
 
-    return parsedString2;
+    return parsedString0;
     
 }
 

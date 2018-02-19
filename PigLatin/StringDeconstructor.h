@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ParserPackage.h"
 
 @protocol CLEWordParser
 
