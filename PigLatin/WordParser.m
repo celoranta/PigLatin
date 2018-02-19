@@ -196,6 +196,7 @@ NSMutableArray* piglatinize(NSMutableArray *letterArray) {
 // Sorts words from everything else, and places strings of each into separate NSMutableArray objects.
 //
 
+
 //create array to hold parsing
 NSMutableArray* siftWordsFromPunctuation(NSMutableArray *letterArray)
 {
@@ -205,11 +206,26 @@ NSMutableArray* siftWordsFromPunctuation(NSMutableArray *letterArray)
     //create custom character set to distinguish words from the rest
     NSCharacterSet *alphaNums = [NSCharacterSet characterSetWithCharactersInString:@"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'"];
     
-    //create registers for string pointer and character index
+    
+    //create registers for string pointer index
     NSString* stringRegister;
     char characterRegister;
     
-    //iterate through the array, marking letters with '&' and the rest with '*'
+    //check to see whether the phrase begins with a letter or other character
+    BOOL phraseStartsWithLetter = YES;
+    stringRegister = [letterArray objectAtIndex:0];
+    characterRegister = [stringRegister characterAtIndex:0];
+    phraseStartsWithLetter = [alphaNums characterIsMember:characterRegister];
+
+    
+    
+
+    // create separate arrays for words vs everything else
+    NSMutableArray *wordsOnlyArray = [[NSMutableArray alloc]init];
+    NSMutableArray *everythingElseArray = [[NSMutableArray alloc]init];
+
+    //make two copies of the original array one with words hashed, the other with non-words hashed
+    
     while(i<[letterArray count])
     {
         stringRegister = [letterArray objectAtIndex:i];
@@ -217,76 +233,171 @@ NSMutableArray* siftWordsFromPunctuation(NSMutableArray *letterArray)
         
         if([alphaNums characterIsMember:characterRegister])
         {
-            [letterArray replaceObjectAtIndex:i withObject:[stringRegister stringByAppendingString:@"&"]];
+            [wordsOnlyArray insertObject:stringRegister atIndex:i];
+            [everythingElseArray insertObject:@"*" atIndex:i];
         }
         else
         {
-            [letterArray replaceObjectAtIndex:i withObject:[stringRegister stringByAppendingString:@"*"]];        }
+            [everythingElseArray insertObject:stringRegister atIndex:i];
+            [wordsOnlyArray insertObject:@"*" atIndex:i];
+            
+        }
         i++;
     }
     
-    NSCharacterSet *markers = [NSCharacterSet characterSetWithCharactersInString:@"&*^"];
-    NSMutableArray *wordArray = [NSMutableArray arrayWithObject:@"^"];
-    NSMutableArray *punctArray = [NSMutableArray arrayWithObject:@"^"];
-    NSString *stringReadRegister = @"";
-    NSString *stringWriteRegister = @"^";
-    NSString *appending = @"^";
-    NSString *trimString = @"^";
-    BOOL markerToggle = YES;
-    BOOL followerToggle = NO;
-    BOOL arrayToggle = YES;
-    NSMutableArray *arraySwitch = nil;
+    NSLog(@"Words array: %@", wordsOnlyArray);
+    NSLog(@"Everthing Else array: %@",everythingElseArray);
+    
+    // the concept below is to turn each array into a string, then use
+    // use 'component separated by characters in set' against a character
+    // set containing only "*" to create arrays full of words and everything else
+    NSString *wordsOnlyString = @"*";
+    NSString *everythingElseString = @"*";
     i = 0;
-    float carryIterator = 0;
-    NSInteger stringPosition = 0;
-    NSInteger bank = 0;
-    while(i < [letterArray count])
+    while(i<[letterArray count])
     {
-        // call up the string at this array register
-        stringReadRegister = [letterArray objectAtIndex:i];
+        stringRegister = [wordsOnlyArray objectAtIndex:i];
+        wordsOnlyString = [wordsOnlyString stringByAppendingString:stringRegister];
         
-        // check to see if it is a letter, and set the marker Toggle accordingly
-        markerToggle = ([stringReadRegister characterAtIndex:1] == '&');
-        
-        // check to see if the marker toggle has changed
-        arrayToggle = !(followerToggle == markerToggle);
-        
-        // point the switch at the proper array for the format
-        if (markerToggle)
-        {
-            arraySwitch = wordArray;
-        }
-        else
-        {
-            arraySwitch = punctArray;
-        }
-        if (followerToggle)
-        {
-            carryIterator++;
-            bank = round((carryIterator/2));
-            stringPosition = 0;
-        }
-        else
-        {
-            stringPosition++;
-        }
-        
-        
-        [stringReadRegister isEqualToString:[letterArray objectAtIndex:i]];
-        [stringWriteRegister isEqualToString:[stringReadRegister stringByTrimmingCharactersInSet:markers] ];
-        [appending isEqualToString: [appending stringByAppendingString:stringWriteRegister]];
-        [arraySwitch replaceObjectAtIndex:(bank) withObject:appending];
-        
-        
-        
-        
-    
-        followerToggle = markerToggle;
+        stringRegister = [everythingElseArray objectAtIndex:i];
+        everythingElseString = [everythingElseString stringByAppendingString:stringRegister];
         
         i++;
     }
-    NSLog(@"%@",wordArray);
-    NSLog(@"%@",punctArray);
+    
+    NSLog(@"Words only string: %@",wordsOnlyString);
+    NSLog(@"Everthing else string: %@",everythingElseString);
+    
+    NSCharacterSet *nullHash = [NSCharacterSet characterSetWithCharactersInString:@"*"];
+    
+    NSMutableArray *fullWordsArray = [wordsOnlyString componentsSeparatedByCharactersInSet:nullHash];
+    NSMutableArray *fullElseArray = [everythingElseString componentsSeparatedByCharactersInSet:nullHash];
+    
+    // remove instances of @"" from both arrays
+    
+    [fullWordsArray removeObject: @""];
+    [fullElseArray removeObject: @""];
+    
+    NSLog(@"Full words array: %@",fullWordsArray);
+    NSLog(@"Full else array: %@",fullElseArray);
+    
+//    NSMutableString * phraseStartsWith = [[NSMutableString alloc]initWithString:@"phrase"];
+//    if(phraseStartsWithLetter == YES)
+//    {
+//        [phraseStartsWith stringByAppendingString:@"StartsWithLetter"];
+//    }
+//    else
+//    {
+//        [phraseStartsWith stringByAppendingString:@"StartsWithNonLetter"];
+//    }
+//
+    NSMutableArray *phraseResponse = [NSMutableArray new];
+    if (phraseStartsWithLetter)
+    {
+        [phraseResponse addObject:fullWordsArray];
+        [phraseResponse addObject:fullElseArray];
+        
+    }
+    else
+    {
+        [phraseResponse addObject:fullElseArray];
+        [phraseResponse addObject:fullWordsArray];
+
+    }
+    NSLog(@"Full response array of arrays: %@",phraseResponse);
+
+    
+    
+//    i = 0;
+//    bool isEqualTo = NULL;
+//    while(i<[wordsOnlyArray count])
+//    {
+//        stringRegister = [wordsOnlyArray objectAtIndex:i];
+//        isEqualTo = [stringRegister isEqualToString:@""];
+//        if (isEqualTo)
+//        {
+//            [wordsOnlyArray removeObjectAtIndex:i];
+//            continue;
+//        }
+//        else{
+//            i++;
+//        }
+//
+//    }
+
+    
+    // the big question is: in what format should I return this data?
+    // the deconstructor (in the dev so far) has expected a return of
+    // an NSMutableArray containing a single word.  Perhaps the most
+    // logical return would be an array of 'single word arrays,' with
+    // all words and spaces re-parsed into the correct order.  To be
+    // sophisticated, the deconstructor should expect this type of return
+    // when running the parser in this mode, and automatically send
+    // back each sub-array (in order) to the next parser mode in the
+    // sequence.
+    
+
+//    NSCharacterSet *markers = [NSCharacterSet characterSetWithCharactersInString:@"&*^"];
+//    NSMutableArray *wordArray = [NSMutableArray arrayWithObject:@"^"];
+//    NSMutableArray *punctArray = [NSMutableArray arrayWithObject:@"^"];
+//    NSString *stringReadRegister = @"";
+//    NSString *stringWriteRegister = @"^";
+//    NSString *appending = @"^";
+//    NSString *trimString = @"^";
+//    BOOL markerToggle = YES;
+//    BOOL followerToggle = NO;
+//    BOOL arrayToggle = YES;
+//    NSMutableArray *arraySwitch = nil;
+//    i = 0;
+//    float carryIterator = 0;
+//    NSInteger stringPosition = 0;
+//    NSInteger bank = 0;
+//    while(i < [letterArray count])
+//    {
+//        // call up the string at this array register
+//        stringReadRegister = [letterArray objectAtIndex:i];
+//
+//        // check to see if it is a letter, and set the marker Toggle accordingly
+//        markerToggle = ([stringReadRegister characterAtIndex:1] == '&');
+//
+//        // check to see if the marker toggle has changed
+//        arrayToggle = !(followerToggle == markerToggle);
+//
+//        // point the switch at the proper array for the format
+//        if (markerToggle)
+//        {
+//            arraySwitch = wordArray;
+//        }
+//        else
+//        {
+//            arraySwitch = punctArray;
+//        }
+//        if (followerToggle)
+//        {
+//            carryIterator++;
+//            bank = round((carryIterator/2));
+//            stringPosition = 0;
+//        }
+//        else
+//        {
+//            stringPosition++;
+//        }
+//
+//
+//        [stringReadRegister isEqualToString:[letterArray objectAtIndex:i]];
+//        [stringWriteRegister isEqualToString:[stringReadRegister stringByTrimmingCharactersInSet:markers] ];
+//        [appending isEqualToString: [appending stringByAppendingString:stringWriteRegister]];
+//        [arraySwitch replaceObjectAtIndex:(bank) withObject:appending];
+//
+//
+//
+//
+//
+//        followerToggle = markerToggle;
+//
+//        i++;
+//    }
+
     return letterArray;
 }
 
